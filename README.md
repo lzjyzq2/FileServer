@@ -1,0 +1,2 @@
+# FileServerCore
+基于NanoHttpd二次开发的WebServer，用于文件上传
