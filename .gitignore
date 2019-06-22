@@ -21,3 +21,20 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+FileServerCore/.idea/vcs.xml
+FileServerCore/.gradle/4.10.3/gc.properties
+FileServerCore/.gradle/4.10.3/fileChanges/last-build.bin
+FileServerCore/.gradle/4.10.3/fileContent/fileContent.lock
+FileServerCore/.gradle/4.10.3/fileHashes/fileHashes.bin
+FileServerCore/.gradle/4.10.3/fileHashes/fileHashes.lock
+FileServerCore/.gradle/4.10.3/javaCompile/javaCompile.lock
+FileServerCore/.gradle/4.10.3/javaCompile/taskHistory.bin
+FileServerCore/.gradle/4.10.3/taskHistory/taskHistory.bin
+FileServerCore/.gradle/4.10.3/taskHistory/taskHistory.lock
+FileServerCore/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+FileServerCore/.gradle/buildOutputCleanup/cache.properties
+FileServerCore/.gradle/buildOutputCleanup/outputFiles.bin
+FileServerCore/.gradle/vcs-1/gc.properties
+FileServerCore/.idea/misc.xml
+FileServerCore/.idea/workspace.xml
+FileServerCore/gradle/wrapper/gradle-wrapper.properties

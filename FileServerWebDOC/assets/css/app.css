@@ -65,7 +65,6 @@ html{
     flex-direction: column
 }
 .am-main-content-list{
-    display: flex;
     flex-grow: 1;
     background: white;
     border: 1px gray dashed;
@@ -85,13 +84,27 @@ html{
 .am-tool-bar{
     margin-top: 5px;
 }
-.am-main-content-item{
+/* .am-main-content-item{
     display: flex;
     border-top: 1px gainsboro solid;
     border-bottom: 1px gainsboro solid;
     padding-top: 5px;
     padding-bottom: 5px
-}
-am-content-item-info{
+} */
+/* .am-content-item-info{
     flex-grow: 1;
+} */
+.am-fileitem-box{
+    border-radius: 5px 5px 5px 5px;
+    padding: 5px 0px;
+    margin: 4px 0px;
+    box-shadow: 0px 0px 5px #aaaaaa;
+}
+.am-fileitem-box.active{
+    border: 2px #35d3fa solid;
+}
+.am-fileitem-name{
+    overflow:hidden;  /*超过部分不显示*/
+    text-overflow:ellipsis;  /*超过部分用点点表示*/
+    white-space:nowrap;/*不换行*/
 }
