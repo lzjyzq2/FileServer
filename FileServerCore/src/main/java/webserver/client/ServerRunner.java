@@ -1,7 +1,8 @@
 package webserver.client;
 
-import webserver.util.Log;
 import webserver.WebServer;
+import webserver.util.Log;
+import webserver.util.VersionUtil;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class ServerRunner{
     private static final String TAG = "ServerRunner";
     private static WebServer webServer;
     public static void main(String[] args) {
+        Log.e(TAG, VersionUtil.getInstance().getVersion());
         webServer = new WebServer();
         try {
             webServer.start();
