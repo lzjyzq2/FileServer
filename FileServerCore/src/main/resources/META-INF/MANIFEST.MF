@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Main-Class: webserver.client.ServerRunner
+Class-Path: lib\fastjson-1.2.58.jar lib\ormlite-core-5.1.jar lib\ormlite
+ -jdbc-5.1.jar lib\commons-fileupload-1.3.1.jar lib\commons-io-2.2.jar l
+ ib\javax.servlet-api-4.0.1.jar lib\hamcrest-core-1.3.jar lib\nanohttpd-
+ apache-fileupload-2.3.1.jar lib\nanohttpd-2.3.1.jar lib\sqlite-jdbc-3.2
+ 7.2.1.jar
+
