@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name">FileServer</string>
-    <string name="title_activity_main">MainActivity</string>
-    <!--
-    This string is used for square devices and overridden by hello_world in
-    values-round/strings.xml for round devices.
-    -->
-    <string name="hello_world">Hello Square World!</string>
+    <string name="info">
+        1.上传文件目录：
+            \n存储根目录/FileServerUpload/
+    </string>
+    <string name="wifi_status_hint">WIFI尚未连接</string>
+    <string name="server_status_hint_start">开始</string>
+    <string name="server_status_hint_runnig">已启动</string>
+    <string name="start_qractivity_intent_flag_ip">ip</string>
+    <string name="permissions_dialog_title">缺少权限</string>
+    <string name="permissions_dialog_message_1">缺少必要的权限，如要继续使用请确认</string>
+    <string name="permissions_dialog_positivebutton_text">确认</string>
+    <string name="permissions_dialog_negativebutton_text">取消</string>
+    <string name="permissions_dialog_message_2">缺少必要的权限，要继续使用请确认，并在设置中允许权限，否则会退出程序</string>
+    <string name="show_ip_hint">点击查看二维码</string>
+    <string name="show_help">查看帮助</string>
+
 </resources>

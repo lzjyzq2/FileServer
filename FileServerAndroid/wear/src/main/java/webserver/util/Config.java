@@ -18,7 +18,7 @@ public class Config {
     private Config(){
             WEBDOC = "FileServerWEBDOC";
             DISKPATH = Environment.getExternalStorageDirectory().getPath();
-            PORT = 8080;
+            PORT = 8081;
             UPLOAD = Environment.getExternalStorageDirectory().getPath()+ File.separator+"FileServerUpload";
             createDir(UPLOAD);
     }
@@ -46,7 +46,6 @@ public class Config {
         //首先判断外部存储是否可用
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sd = new File(Environment.getExternalStorageDirectory().getPath());
-            Log.e("config", "sd = " + sd);//sd = /storage/emulated/0
             return sd.canWrite();
         } else {
             return false;
