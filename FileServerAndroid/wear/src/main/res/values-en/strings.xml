@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FileServer</string>
+    <string name="info">
+        1.Upload Directory：
+            \n(Storage Root)/FileServerUpload/
+    </string>
+    <string name="wifi_status_hint">No WIFI</string>
+    <string name="server_status_hint_start">Start</string>
+    <string name="server_status_hint_runnig">Running</string>
+    <string name="start_qractivity_intent_flag_ip">ip</string>
+    <string name="permissions_dialog_title">Lack of permission</string>
+    <string name="permissions_dialog_message_1">Lack of necessary permissions, if you want to continue using please confirm</string>
+    <string name="permissions_dialog_positivebutton_text">OK</string>
+    <string name="permissions_dialog_negativebutton_text">Cancel</string>
+    <string name="permissions_dialog_message_2">Lack of necessary permissions. Continue to use Confirm and allow permissions in the settings. Otherwise, you will quit the program.</string>
+    <string name="show_ip_hint">See QR-Code</string>
+    <string name="show_help">Help</string>
+</resources>
