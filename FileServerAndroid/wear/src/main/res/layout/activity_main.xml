@@ -1,95 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.wearable.view.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ticwear.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_activity_background_color"
-    android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".MainActivity"
+    android:scrollbars="vertical"
+    app:tic_overScrollEffect="bounce"
+    tools:context=".activity.MainActivity"
     tools:deviceIds="wear">
-    <LinearLayout
+
+    <ticwear.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ticwear.design.widget.ScalableTextView
+            android:id="@+id/mainactivity_title"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="@string/mainactivity_title"
+            app:tic_layout_scrollFlags="scroll|overScrollBounce|enterAlways"
+            app:tic_layout_scrollResistanceFactor="0.5"
+            app:tic_scaleFactor="0.5" />
+    </ticwear.design.widget.AppBarLayout>
+
+    <ScrollView
+        style="@style/Widget.Ticwear.ListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:layout_box="all">
+        android:nestedScrollingEnabled="true"
+        android:paddingStart="?android:listPreferredItemPaddingStart"
+        android:paddingTop="@dimen/tic_list_padding_bottom_ticwear"
+        android:paddingEnd="?android:listPreferredItemPaddingEnd"
+        android:paddingBottom="@dimen/tic_list_padding_bottom_ticwear"
+        app:tic_layout_behavior="@string/tic_appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:orientation="vertical">
 
-
-        <LinearLayout
-            android:id="@+id/startserver_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground">
-            <ImageView
-                android:id="@+id/startserver_img"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/icon_do"/>
-            <TextView
-                android:text="@string/server_status_hint_start"
-                android:id="@+id/showserver_tv"
-                android:textColor="@color/black"
-                android:layout_marginLeft="5dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/showqrcode_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="?android:attr/selectableItemBackground">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/icon_wifi"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                style="@style/Widget.Ticwear.ListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/server_status_title"
+                        android:textSize="@dimen/tic_text_size_medium_2" />
+
+                    <TextView
+                        android:id="@+id/server_status_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/server_status_hint_start"
+                        android:textSize="@dimen/tic_text_size_extra_small" />
+                </LinearLayout>
+
+                <ticwear.design.widget.SimpleSwitch
+                    android:id="@+id/server_start_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/show_qrcode_btn"
+                style="@style/Widget.Ticwear.ListItem"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center_vertical">
+                android:background="?android:selectableItemBackground"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/wifi_img"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/main_item_image_shape"
+                    android:src="@drawable/icon_wifi_a_off" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/wifi_status_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/wifi_status_hint"
+                        android:textSize="@dimen/tic_text_size_medium_2" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/show_ip_hint"
+                        android:textSize="@dimen/tic_text_size_extra_small" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/show_help_btn"
+                style="@style/Widget.Ticwear.ListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/help_img"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/main_item_image_shape"
+                    android:src="@drawable/icon_help_a_off" />
+
                 <TextView
-                    android:id="@+id/showip_tv"
-                    android:text="@string/wifi_status_hint"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/black"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:text="@string/show_ip_hint"
-                    android:textSize="10sp"
-                    android:textColor="@color/grey"
-                    android:layout_marginLeft="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/show_help"
+                    android:textSize="@dimen/tic_text_size_medium_2" />
             </LinearLayout>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/showinfo_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="?android:attr/selectableItemBackground">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@drawable/icon_info"/>
-            <TextView
-                android:text="@string/show_help"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-</android.support.wearable.view.BoxInsetLayout>
+    </ScrollView>
+</ticwear.design.widget.CoordinatorLayout>

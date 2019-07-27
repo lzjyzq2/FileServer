@@ -1,11 +1,7 @@
 <resources>
     <string name="app_name">FileServer</string>
-    <string name="info">
-        1.上传文件目录：
-            \n存储根目录/FileServerUpload/
-    </string>
     <string name="wifi_status_hint">WIFI尚未连接</string>
-    <string name="server_status_hint_start">开始</string>
+    <string name="server_status_hint_start">未启动</string>
     <string name="server_status_hint_runnig">已启动</string>
     <string name="start_qractivity_intent_flag_ip">ip</string>
     <string name="permissions_dialog_title">缺少权限</string>
@@ -15,5 +11,27 @@
     <string name="permissions_dialog_message_2">缺少必要的权限，要继续使用请确认，并在设置中允许权限，否则会退出程序</string>
     <string name="show_ip_hint">点击查看二维码</string>
     <string name="show_help">查看帮助</string>
-
+    <string name="helpactivity_title">使用帮助</string>
+    <string name="mainactivity_title">主页</string>
+    <string name="mainactivity_title1">微光模式中</string>
+    <string name="server_status_title">文件服务</string>
+    <string name="info_default_content">无</string>
+    <string name="info_default_title">无</string>
+    <string name="help_uploadpath_title">上传路径</string>
+    <string name="help_uploadpath_content">默认上传路径为:</string>
+    <string name="help_permission_title">权限</string>
+    <string name="help_permission_content">运行时需要对文件进行读取、存储、修改，缺少必要的权限会导致无法运行，所以请勿关闭必要的权限。</string>
+    <string name="help_careful_title">注意事项</string>
+    <string name="help_careful_content">&#32;&#32;后台运行&#58;应用支持后台运行，如果不再使用时，请手动向右滑动关闭主界面来结束应用程序的运行，来减少电量的消耗。</string>
+    <string name="help_twilight_mode_title">微光模式</string>
+    <string name="help_twilight_mode_content">当长时间不对手表进行操作后，应用会进入微光模式，此时需要先点击一次界面来退出微光模式，来继续使用应用。</string>
+    <string name="help_network_title">网络</string>
+    <string name="help_network_content">网络需求：手表需连接WIFI，且与PC或手机连入在同一局域网。\n内容加载：首次使用，打开网页时可能速度较慢，请耐心等待，如有未响应等问题，请检查连接的网络和输入的网址是否正确。</string>
+    <string name="help_useinfo_title">使用步骤</string>
+    <string name="help_useinfo_content">
+        ①授予权限\n
+        ②在主页中点击文件服务旁的开关启动服务。\n
+        ③在浏览器地址栏中输入显示的IP地址，或使用手机扫描二维码打开网址。\n
+        ④暂不使用时，点击文件服务旁的开关关闭服务，节省电量。\n
+        ⑤结束使用后，向右滑动，结束应用进程。</string>
 </resources>

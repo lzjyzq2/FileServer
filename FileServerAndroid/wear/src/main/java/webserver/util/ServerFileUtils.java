@@ -1,6 +1,6 @@
 package webserver.util;
 
-import cn.settile.lzjyzq2.fileserver.myapplication;
+import cn.settile.lzjyzq2.fileserver.application.myapplication;
 import webserver.bean.DiskInfo;
 import webserver.bean.FileInfo;
 import webserver.bean.UploaDirectoryInfo;

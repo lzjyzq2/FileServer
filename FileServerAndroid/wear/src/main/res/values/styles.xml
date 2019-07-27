@@ -3,7 +3,4 @@
     <style name="AppTheme" parent="Theme.Wearable">
         <!-- Customize your theme here. -->
     </style>
-    <style name="AppDialogTheme" parent="Theme.WearDiag">
-        <item name="android:windowNoTitle">true</item>
-    </style>
 </resources>

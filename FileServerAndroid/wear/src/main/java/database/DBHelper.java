@@ -1,6 +1,5 @@
 package database;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -11,7 +10,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import cn.settile.lzjyzq2.fileserver.myapplication;
+import cn.settile.lzjyzq2.fileserver.application.myapplication;
 import database.bean.TempFile;
 import database.bean.UserBean;
 

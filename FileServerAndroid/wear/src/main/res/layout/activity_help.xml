@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ticwear.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    app:tic_overScrollEffect="bounce">
+
+    <ListView
+        android:id="@+id/helplist"
+        android:nestedScrollingEnabled="true"
+        app:tic_layout_behavior="@string/tic_appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="?android:selectableItemBackground"
+        style="@style/Widget.Ticwear.ListView">
+    </ListView>
+
+    <ticwear.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ticwear.design.widget.ScalableTextView
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="@string/helpactivity_title"
+            app:tic_layout_scrollFlags="scroll|overScrollBounce|enterAlways"
+            app:tic_layout_scrollResistanceFactor="0.5"
+            app:tic_scaleFactor="0.5"
+            />
+
+    </ticwear.design.widget.AppBarLayout>
+
+</ticwear.design.widget.CoordinatorLayout>

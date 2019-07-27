@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FileServer</string>
-    <string name="info">
-        1.Upload Directory：
-            \n(Storage Root)/FileServerUpload/
-    </string>
     <string name="wifi_status_hint">No WIFI</string>
-    <string name="server_status_hint_start">Start</string>
+    <string name="server_status_hint_start">Closed</string>
     <string name="server_status_hint_runnig">Running</string>
     <string name="start_qractivity_intent_flag_ip">ip</string>
     <string name="permissions_dialog_title">Lack of permission</string>
@@ -16,4 +12,27 @@
     <string name="permissions_dialog_message_2">Lack of necessary permissions. Continue to use Confirm and allow permissions in the settings. Otherwise, you will quit the program.</string>
     <string name="show_ip_hint">See QR-Code</string>
     <string name="show_help">Help</string>
+    <string name="helpactivity_title">Help</string>
+    <string name="mainactivity_title">Main</string>
+    <string name="server_status_title">File Server</string>
+    <string name="info_default_content">No content</string>
+    <string name="info_default_title">Unknown</string>
+    <string name="help_uploadpath_title">Upload Path</string>
+    <string name="help_uploadpath_content">The default upload path:</string>
+    <string name="help_permission_title">permission</string>
+    <string name="help_permission_content">Running time needs to read, store and modify files. Lack of necessary permissions will lead to the failure of running, so do not close the necessary permissions.</string>
+    <string name="help_careful_title">Careful</string>
+    <string name="help_careful_content">&#32;&#32;Background running&#58;The application supports background running. If it is no longer in use, please manually slide to the right to close the main interface to end the application running to reduce power consumption.</string>
+    <string name="help_twilight_mode_title">Twiliglt mode</string>
+    <string name="help_twilight_mode_content">When the watches are not operated for a long time, the application will enter the low-light mode. At this time, it is necessary to click the interface to exit the low-light mode and continue to use the application.</string>
+    <string name="mainactivity_title1">Twiliglt mode</string>
+    <string name="help_network_title">Network</string>
+    <string name="help_network_content">Network Requirements: Watches need to be connected to WIFI and connected to the same LAN as PCs or mobile phones. \nContent Loading: For the first time, it may be slower to open the web page. Please wait patiently. If there is no response, please check whether the connected network and the inputted address are correct.</string>
+    <string name="help_useinfo_title">Use steps</string>
+    <string name="help_useinfo_content">
+        ①Consent authority\n
+        ②On the home page, click on the switch next to the file service to start the service.\n
+        ③Enter the displayed IP address in the browser address bar, or use the mobile phone to scan the QR-Code to open the web address.\n
+        ④When not in use, click on the switch next to the file service to close the service and save electricity.\n
+        ⑤After the end of use, slide to the right and end the application process.</string>
 </resources>

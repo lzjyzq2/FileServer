@@ -1,4 +1,4 @@
-package cn.settile.lzjyzq2.fileserver;
+package cn.settile.lzjyzq2.fileserver.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,7 @@ import android.support.wearable.activity.WearableActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.settile.lzjyzq2.fileserver.R;
 import webserver.util.QRCodeUtil;
 
 public class QRCodeActivity extends WearableActivity {
@@ -29,7 +30,7 @@ public class QRCodeActivity extends WearableActivity {
             qrImageview.setImageBitmap(QRCodeUtil.createQRCodeBitmap(ip,320,320,"UTF-8","H","1", Color.BLACK,Color.WHITE));
         }else {
             showIpTv.setText(R.string.wifi_status_hint);
-            qrImageview.setImageResource(R.drawable.icon_wifi);
+            qrImageview.setImageResource(R.drawable.icon_wifi_a_off);
         }
     }
 }

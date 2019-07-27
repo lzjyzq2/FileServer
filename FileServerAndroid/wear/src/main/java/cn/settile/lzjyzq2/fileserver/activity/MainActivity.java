@@ -1,7 +1,8 @@
-package cn.settile.lzjyzq2.fileserver;
+package cn.settile.lzjyzq2.fileserver.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,14 +17,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.support.wearable.activity.WearableActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
@@ -33,6 +36,10 @@ import com.yanzhenjie.permission.RequestExecutor;
 import java.util.Calendar;
 import java.util.List;
 
+import cn.settile.lzjyzq2.fileserver.R;
+import cn.settile.lzjyzq2.fileserver.application.myapplication;
+import ticwear.design.app.AlertDialog;
+import ticwear.design.widget.SimpleSwitch;
 import webserver.WebServer;
 import webserver.util.Config;
 import webserver.util.IPUtil;
@@ -41,7 +48,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
 
     private static WebServer webServer;
     private static final String TAG = "MainActivity";
-    private static boolean serverflag = false;
+    protected static boolean serverflag = false;
     private static String ip = null;
     private ConnectivityManager connectivityManager;
 
@@ -63,14 +70,17 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    showipTv.setText((String)msg.obj);
+                    wifi_status_tv.setText((String)msg.obj);
                     break;
             }
         }
     };
-    private LinearLayout startserverBtn,showQRCodeBtn,showInfoBtn;
-    private ImageView startserverImageView,showQRCodeImageView,showInfoImageView;
-    private TextView showserverTv,showipTv;
+    private LinearLayout showQRCodeBtn,showHelpBtn;
+    private TextView server_status_tv, wifi_status_tv,mainactivity_title;
+    private SimpleSwitch start_server_switch;
+
+    private ImageView wifi_img,help_img;
+
 
     private ConnectivityManager.NetworkCallback networkCallback = new ConnectivityManager.NetworkCallback(){
         @Override
@@ -78,9 +88,9 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
             super.onAvailable(network);
             NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             if(networkInfo!=null&&networkInfo.isConnected()){
-                WifiManager wifiManager = (WifiManager)myapplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiManager wifiManager = (WifiManager) myapplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
                 ip = IPUtil.intToIp(wifiManager.getConnectionInfo().getIpAddress())+":"+ Config.getInstance().getPORT();
-                if(showipTv!=null){
+                if(wifi_status_tv !=null){
                     Message message = Message.obtain();
                     message.what = 1;
                     message.obj = ip;
@@ -100,7 +110,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
             NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             if(networkInfo!=null&&networkInfo.isConnected()){
                 ip=null;
-                showipTv.setText(R.string.wifi_status_hint);
+                wifi_status_tv.setText(R.string.wifi_status_hint);
             }
         }
 
@@ -136,12 +146,38 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
                     .onGranted(GrantedAction)
                     .onDenied(DeniedAction)
                     .start();
-        }else {
-            initServer();
-            initView();
+        }
+        initServer();
+        initView();
+    }
+
+    @Override
+    public void onEnterAmbient(Bundle ambientDetails) {
+        super.onEnterAmbient(ambientDetails);
+        if (wifi_img!=null){
+            wifi_img.setImageResource(R.drawable.icon_wifi_a_on);
+        }
+        if (help_img!=null) {
+            help_img.setImageResource(R.drawable.icon_help_a_on);
+        }
+        if(mainactivity_title!=null){
+            mainactivity_title.setText(R.string.mainactivity_title1);
         }
     }
 
+    @Override
+    public void onExitAmbient() {
+        super.onExitAmbient();
+        if (wifi_img!=null){
+            wifi_img.setImageResource(R.drawable.icon_wifi_a_off);
+        }
+        if (help_img!=null) {
+            help_img.setImageResource(R.drawable.icon_help_a_off);
+        }
+        if(mainactivity_title!=null){
+            mainactivity_title.setText(R.string.mainactivity_title);
+        }
+    }
 
     private void initServer() {
         webServer = new WebServer();
@@ -152,18 +188,43 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
     }
 
     private void initView() {
-        startserverBtn = findViewById(R.id.startserver_btn);
-        showQRCodeBtn = findViewById(R.id.showqrcode_btn);
-        showInfoBtn = findViewById(R.id.showinfo_btn);
-        startserverBtn.setOnClickListener(this);
+        start_server_switch = findViewById(R.id.server_start_switch);
+        showQRCodeBtn = findViewById(R.id.show_qrcode_btn);
+        showHelpBtn = findViewById(R.id.show_help_btn);
         showQRCodeBtn.setOnClickListener(this);
-        showInfoBtn.setOnClickListener(this);
-        startserverImageView = findViewById(R.id.startserver_img);
-        showserverTv = findViewById(R.id.showserver_tv);
-        showipTv = findViewById(R.id.showip_tv);
+        showHelpBtn.setOnClickListener(this);
+        server_status_tv = findViewById(R.id.server_status_tv);
+        wifi_status_tv = findViewById(R.id.wifi_status_tv);
+
+        mainactivity_title = findViewById(R.id.mainactivity_title);
+        wifi_img = findViewById(R.id.wifi_img);
+        help_img = findViewById(R.id.help_img);
         if(ip!=null){
-            showipTv.setText(ip);
+            wifi_status_tv.setText(ip);
         }
+        start_server_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    startServer();
+                    server_status_tv.setText(R.string.server_status_hint_runnig);
+                    showQRCodeBtn.setVisibility(View.VISIBLE);
+                    AnimatorSet animatorSet = new AnimatorSet();  //组合动画
+                    ObjectAnimator scaleX = ObjectAnimator.ofFloat(showQRCodeBtn, "scaleX", 0f, 1f);
+                    ObjectAnimator scaleY = ObjectAnimator.ofFloat(showQRCodeBtn, "scaleY", 0f, 1f);
+                    ObjectAnimator alpha = ObjectAnimator.ofFloat(showQRCodeBtn,"alpha",0f,100f);
+                    animatorSet.setDuration(300);  //动画时间
+                    animatorSet.setInterpolator(new DecelerateInterpolator());  //设置插值器
+                    animatorSet.play(scaleX).with(scaleY).with(alpha);  //同时执行
+                    animatorSet.start();  //启动动画
+                }else {
+                    stopServer();
+                    server_status_tv.setText(R.string.server_status_hint_start);
+                    showQRCodeBtn.setVisibility(View.GONE);
+                }
+            }
+        });
+
     }
 
 
@@ -171,7 +232,6 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
     protected void onDestroy() {
         super.onDestroy();
         stopServer();
-        System.exit(0);
     }
     private void startServer(){
         if(webServer!=null&&!serverflag) {
@@ -193,21 +253,10 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.startserver_btn:
-                if(serverflag){
-                    stopServer();
-                    startserverImageView.setBackgroundResource(R.drawable.icon_do);
-                    showserverTv.setText(R.string.server_status_hint_start);
-                }else {
-                    startServer();
-                    startserverImageView.setBackgroundResource(R.drawable.icon_done);
-                    showserverTv.setText(R.string.server_status_hint_runnig);
-                }
+            case R.id.show_help_btn:
+                startActivity(new Intent(this, HelpActivity.class));
                 break;
-            case R.id.showinfo_btn:
-                startActivity(new Intent(this,InfoActivity.class));
-                break;
-            case R.id.showqrcode_btn:
+            case R.id.show_qrcode_btn:
                 Intent intent = new Intent(this,QRCodeActivity.class);
                 intent.putExtra(getString(R.string.start_qractivity_intent_flag_ip),ip);
                 startActivity(intent);
@@ -221,20 +270,12 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
             case REQ_CODE_PERMISSION:
                 if (AndPermission.hasPermissions(this, mypermissions)) {
                     // 有对应的权限
-                    initServer();
-                    initView();
                 } else {
                     // 没有对应的权限
                     finish();
                 }
                 break;
         }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
@@ -244,14 +285,14 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         builder.setIcon(R.mipmap.ic_launcher_round);
         builder.setMessage(R.string.permissions_dialog_message_1);
         builder.setCancelable(false);
-        builder.setPositiveButton(R.string.permissions_dialog_positivebutton_text, new DialogInterface.OnClickListener() {
+        builder.setPositiveButtonIcon(R.drawable.tic_ic_btn_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 MainActivity.this.dialogstatus=1;
                 executor.execute();
             }
         });
-        builder.setNegativeButton(R.string.permissions_dialog_negativebutton_text, new DialogInterface.OnClickListener() {
+        builder.setNegativeButtonIcon(R.drawable.tic_ic_btn_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 executor.cancel();
@@ -279,7 +320,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         builder.setIcon(R.mipmap.ic_launcher_round);
         builder.setCancelable(false);
         builder.setMessage(R.string.permissions_dialog_message_2);
-        builder.setPositiveButton(R.string.permissions_dialog_positivebutton_text, new DialogInterface.OnClickListener() {
+        builder.setPositiveButtonIcon(R.drawable.tic_ic_btn_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 AndPermission.with(MainActivity.this)
@@ -287,10 +328,9 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
                         .setting()
                         .start(REQ_CODE_PERMISSION);
                 dialogstatus = 1;
-                dialog.dismiss();
             }
         });
-        builder.setNegativeButton(R.string.permissions_dialog_negativebutton_text, new DialogInterface.OnClickListener() {
+        builder.setNegativeButtonIcon(R.drawable.tic_ic_btn_cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -301,6 +341,9 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
             public void onDismiss(DialogInterface dialog) {
                 if(dialogstatus==0){
                     finish();
+                    MainActivity.this.finish();
+                }else{
+                    dialogstatus = 0;
                 }
             }
         });

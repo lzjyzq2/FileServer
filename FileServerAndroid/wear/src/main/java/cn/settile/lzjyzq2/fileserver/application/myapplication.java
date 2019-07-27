@@ -1,4 +1,4 @@
-package cn.settile.lzjyzq2.fileserver;
+package cn.settile.lzjyzq2.fileserver.application;
 
 import android.app.Application;
 import android.content.Context;
