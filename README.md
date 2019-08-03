@@ -36,3 +36,6 @@
 --- 
 ### 加入群交流
 ![setTile](https://raw.githubusercontent.com/lzjyzq2/FileServer/master/fileserverwebdoc/src/assets/joinQR.jpg)
+
+### 如果喜欢可以捐助~~~
+![捐助](https://raw.githubusercontent.com/lzjyzq2/FileServer/master/fileserverwebdoc/src/assets/jz.png)
