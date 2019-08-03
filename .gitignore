@@ -38,3 +38,4 @@ FileServerCore/.gradle/vcs-1/gc.properties
 FileServerCore/.idea/misc.xml
 FileServerCore/.idea/workspace.xml
 FileServerCore/gradle/wrapper/gradle-wrapper.properties
+FileServerCore/build/resources/main/META-INF/MANIFEST.MF
