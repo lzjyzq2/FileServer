@@ -5,12 +5,16 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import cn.settile.lzjyzq2.fileserver.ExceptionCrash.CrashHandler;
+
 public class myapplication extends Application {
     private static Context mContext;
     @Override
     public void onCreate() {
         super.onCreate();
         this.mContext = getApplicationContext();
+        CrashHandler crashHandler = CrashHandler.getInstance();
+        crashHandler.init(getApplicationContext());
     }
 
     public static Context getContext() {

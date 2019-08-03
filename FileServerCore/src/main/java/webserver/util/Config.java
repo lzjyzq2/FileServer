@@ -1,5 +1,6 @@
 package webserver.util;
 
+import java.net.ServerSocket;
 import java.util.ResourceBundle;
 
 public class Config {
@@ -13,7 +14,9 @@ public class Config {
         try {
             WEBDOC = resource.getString("WEBDOC");
             DISKPATH = resource.getString("DISKPATH");
-            PORT = Integer.parseInt(resource.getString("PORT"));
+            ServerSocket serverSocket =  new ServerSocket(0); //读取空闲的可用端口
+            PORT =  serverSocket.getLocalPort(); //Integer.parseInt(resource.getString("PORT"));
+            serverSocket.close();
             UPLOAD = resource.getString("UPLOAD");
         } catch (Exception e) {
             e.printStackTrace();

@@ -6,23 +6,26 @@ import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ServerSocket;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class Config {
     private static Config config = new Config();
-    private int PORT = 8080;
+    private int PORT = 8081;
     private String WEBDOC = null;
     private String DISKPATH = null;
     private String UPLOAD = null;
-    private Config(){
-            WEBDOC = "FileServerWEBDOC";
-            DISKPATH = Environment.getExternalStorageDirectory().getPath();
-            PORT = 8081;
-            UPLOAD = Environment.getExternalStorageDirectory().getPath()+ File.separator+"FileServerUpload";
-            createDir(UPLOAD);
+
+    private Config() {
+        WEBDOC = "FileServerWEBDOC";
+        DISKPATH = Environment.getExternalStorageDirectory().getPath();
+        PORT = renewPort();
+        UPLOAD = Environment.getExternalStorageDirectory().getPath() + File.separator + "FileServerUpload";
+        createDir(UPLOAD);
     }
-    public static Config getInstance(){
+
+    public static Config getInstance() {
         return config;
     }
 
@@ -42,7 +45,19 @@ public class Config {
         return UPLOAD;
     }
 
-    public static boolean canavilable () {
+    public int renewPort(){
+        ServerSocket serverSocket = null;
+        try {
+            serverSocket = new ServerSocket(0);
+            PORT = serverSocket.getLocalPort(); //Integer.parseInt(resource.getString("PORT"));
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return getPORT();
+    }
+
+    public static boolean canavilable() {
         //首先判断外部存储是否可用
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             File sd = new File(Environment.getExternalStorageDirectory().getPath());
@@ -51,6 +66,7 @@ public class Config {
             return false;
         }
     }
+
     public static boolean createDir(String destDirName) {
         File dir = new File(destDirName);
         if (dir.exists()) {// 判断目录是否存在

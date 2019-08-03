@@ -33,6 +33,7 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Rationale;
 import com.yanzhenjie.permission.RequestExecutor;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
     protected static boolean serverflag = false;
     private static String ip = null;
     private ConnectivityManager connectivityManager;
-
+    private WifiManager wifiManager;
     private int dialogstatus = 0;
     private static final int REQ_CODE_PERMISSION = 9527;
 
@@ -87,8 +88,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         public void onAvailable(Network network) {
             super.onAvailable(network);
             NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if(networkInfo!=null&&networkInfo.isConnected()){
-                WifiManager wifiManager = (WifiManager) myapplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            if(networkInfo!=null&&(networkInfo.isConnectedOrConnecting()||networkInfo.isAvailable())){
                 ip = IPUtil.intToIp(wifiManager.getConnectionInfo().getIpAddress())+":"+ Config.getInstance().getPORT();
                 if(wifi_status_tv !=null){
                     Message message = Message.obtain();
@@ -108,9 +108,14 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         public void onLost(Network network) {
             super.onLost(network);
             NetworkInfo networkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if(networkInfo!=null&&networkInfo.isConnected()){
-                ip=null;
-                wifi_status_tv.setText(R.string.wifi_status_hint);
+            if(networkInfo!=null&&!(networkInfo.isConnected()||networkInfo.isConnectedOrConnecting()||networkInfo.isAvailable())){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ip=null;
+                        wifi_status_tv.setText(R.string.wifi_status_hint);
+                    }
+                });
             }
         }
 
@@ -181,6 +186,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
 
     private void initServer() {
         webServer = new WebServer();
+        wifiManager = (WifiManager) myapplication.getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         connectivityManager = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
         if(connectivityManager!=null){
             connectivityManager.registerNetworkCallback(new NetworkRequest.Builder().addTransportType(NetworkCapabilities.TRANSPORT_WIFI).build(), networkCallback);
@@ -206,7 +212,14 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    startServer();
+                    try {
+                        startServer();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        serverflag = false;
+                        start_server_switch.setChecked(false);
+                        return;
+                    }
                     server_status_tv.setText(R.string.server_status_hint_runnig);
                     showQRCodeBtn.setVisibility(View.VISIBLE);
                     AnimatorSet animatorSet = new AnimatorSet();  //组合动画
@@ -233,14 +246,10 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         super.onDestroy();
         stopServer();
     }
-    private void startServer(){
+    private void startServer() throws IOException {
         if(webServer!=null&&!serverflag) {
-            try {
-                webServer.start();
-                serverflag = true;
-            } catch (Exception e) {
-                Log.e(TAG,e.toString());
-            }
+            webServer.start();
+            serverflag = true;
         }
     }
     private void stopServer(){

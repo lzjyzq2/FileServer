@@ -35,9 +35,9 @@ public class DBHelper {
     public static void init() {
         try {
             TableUtils.createTableIfNotExists(getConnectionSource(), TempFile.class);
-            if (TableUtils.createTableIfNotExists(getConnectionSource(), UserBean.class) > 0) {
-                getUserBeanDao().create(new UserBean());
-            }
+//            if (TableUtils.createTableIfNotExists(getConnectionSource(), UserBean.class) > 0) {
+//                getUserBeanDao().create(new UserBean());
+//            }
         } catch (Exception exception) {
             exception.printStackTrace();
         }
