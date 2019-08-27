@@ -20,7 +20,11 @@
     <string name="help_uploadpath_title">上传路径</string>
     <string name="help_uploadpath_content">默认上传路径为:</string>
     <string name="help_permission_title">权限</string>
-    <string name="help_permission_content">运行时需要对文件进行读取、存储、修改，缺少必要的权限会导致无法运行，所以请勿关闭必要的权限。</string>
+    <string name="help_permission_content">
+        注意事项：运行时需要对文件进行读取、存储、修改，缺少必要的权限会导致无法运行，所以请勿关闭必要的权限。\n
+        网络：若手表为TicWear，请转至设置-权限管理-FileServer中，将移动数据权限设置为“已开启”。\n
+        存储：需要写入读取本地内容，所以请在设置中保持存储权限开启。
+    </string>
     <string name="help_careful_title">注意事项</string>
     <string name="help_careful_content">&#32;&#32;后台运行&#58;应用支持后台运行，如果不用请手动向右滑动关闭主界面来结束应用程序的运行。</string>
     <string name="help_twilight_mode_title">微光模式</string>
@@ -28,14 +32,19 @@
     <string name="mainactivity_title1">微光模式中</string>
     <string name="help_network_title">网络</string>
     <string name="help_network_content">
-        ▶网络需求：手表需连接WIFI，且与PC或手机连入在同一局域网。\n
-        ▶内容加载：首次使用，打开网页时可能速度较慢，请耐心等待，如有未响应等问题，请检查连接的网络和输入的网址是否正确。</string>
+        注意事项：若手表为TicWear，请转至设置-权限管理-FileServer中，将移动数据权限设置为“已开启”。\n
+        网络需求：手表需连接WIFI，且与PC或手机连入在同一局域网。\n
+        内容加载：首次使用，打开网页时可能速度较慢，请耐心等待，如有未响应等问题，请检查连接的网络和输入的网址是否正确。\n
+    </string>
     <string name="help_useinfo_title">使用步骤</string>
     <string name="help_useinfo_content">
         ①授予权限\n
-        ②在主页中点击文件服务旁的开关启动服务。\n
-        ③在浏览器地址栏中输入显示的IP地址，或使用手机扫描二维码打开网址。\n
-        ④暂不使用时，点击文件服务旁的开关关闭服务，节省电量。\n
-        ⑤结束使用后，向右滑动，结束应用进程。
+        ②若手表为TicWear，请转至设置-权限管理-FileServer中，将移动数据权限设置为“已开启”。
+        ③在主页中点击文件服务旁的开关启动服务。\n
+        ④在浏览器地址栏中输入显示的IP地址，或使用手机扫描二维码打开网址。\n
+        ⑤暂不使用时，点击文件服务旁的开关关闭服务，节省电量。\n
+        ⑥结束使用后，向右滑动，结束应用进程。
     </string>
+    <string name="main_activity_tip">若手表为TicWear，请转至设置-权限管理-FileServer中，将移动数据权限设置为“已开启”。</string>
+    <string name="aboutactivity_joinhint">QQ:287474030</string>
 </resources>

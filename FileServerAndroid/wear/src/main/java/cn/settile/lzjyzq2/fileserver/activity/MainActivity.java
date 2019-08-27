@@ -60,6 +60,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
     private String[] mypermissions = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.INTERNET,
             Manifest.permission.WAKE_LOCK,
             Manifest.permission.ACCESS_WIFI_STATE,
             Manifest.permission.ACCESS_NETWORK_STATE,
@@ -71,7 +72,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    wifi_status_tv.setText((String)msg.obj);
+                    wifi_status_tv.setText("http://"+(String)msg.obj);
                     break;
             }
         }
@@ -206,7 +207,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
         wifi_img = findViewById(R.id.wifi_img);
         help_img = findViewById(R.id.help_img);
         if(ip!=null){
-            wifi_status_tv.setText(ip);
+            wifi_status_tv.setText("http://"+ip);
         }
         start_server_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

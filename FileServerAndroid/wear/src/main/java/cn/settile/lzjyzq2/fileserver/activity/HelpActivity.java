@@ -35,6 +35,7 @@ public class HelpActivity extends WearableActivity implements AdapterView.OnItem
         data.add("网络");
         data.add("注意事项");
         data.add("微光模式");
+        data.add("关于");
         helpListAdapter = new HelpListAdapter(this,R.layout.helpitem_layout,data);
         listView = findViewById(R.id.helplist);
         listView.setOnItemClickListener(this);
@@ -73,6 +74,10 @@ public class HelpActivity extends WearableActivity implements AdapterView.OnItem
             case "微光模式":
                 intent = new Intent(this,HelpInfoActivity.class);
                 intent.putExtra("form",getString(R.string.help_twilight_mode_title));
+                startActivity(intent);
+                break;
+            case "关于":
+                intent = new Intent(this,AboutActivity.class);
                 startActivity(intent);
                 break;
         }

@@ -26,8 +26,8 @@ public class QRCodeActivity extends WearableActivity {
         Intent intent = getIntent();
         String ip = intent.getStringExtra(getString(R.string.start_qractivity_intent_flag_ip));
         if(null!=ip&&""!=ip){
-            showIpTv.setText(ip);
-            qrImageview.setImageBitmap(QRCodeUtil.createQRCodeBitmap(ip,320,320,"UTF-8","H","1", Color.BLACK,Color.WHITE));
+            showIpTv.setText("http://"+ip);
+            qrImageview.setImageBitmap(QRCodeUtil.createQRCodeBitmap("http://"+ip,320,320,"UTF-8","H","1", Color.BLACK,Color.WHITE));
         }else {
             showIpTv.setText(R.string.wifi_status_hint);
             qrImageview.setImageResource(R.drawable.icon_wifi_a_off);
