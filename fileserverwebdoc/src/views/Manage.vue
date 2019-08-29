@@ -75,7 +75,7 @@
                 v-model="delfilevisible"
                 :confirmLoading="delfileconfirmLoading"
               >
-                <p>确认是否删除选中的文件与、文件夹</p>
+                <p>确认是否删除选中的文件与文件夹</p>
               </a-modal>
             </a-button-group>
           </div>

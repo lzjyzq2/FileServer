@@ -98,6 +98,7 @@ public class WebServer extends NanoHTTPD {
                                     int index = 1;
                                     while (file.exists()) {
                                         file = new File(Config.getInstance().getUPLOAD() + File.separator + name + "(" + index + ")" + type);
+                                        index++;
                                     }
                                     fileItem.write(file);
                                     return newFixedLengthResponse("Suss");
@@ -370,6 +371,7 @@ public class WebServer extends NanoHTTPD {
                                         int index = 1;
                                         while (file.exists()) {
                                             file = new File(path + File.separator + name + "(" + index + ")" + type);
+                                            index++;
                                         }
                                         fileItem.write(file);
                                         return newFixedLengthResponse("Suss");

@@ -101,7 +101,7 @@ export default {
           file: null,
           info: {
             progress: 0,
-            status: false,
+            status: 'upload',
             type: ""
           }
         };
@@ -144,13 +144,13 @@ export default {
       let data = this.fileList;
       let size = 0;
       for (let i = 0; i < length; i++) {
-        if (data[i].info.status) continue;
+        if (data[i].info.status!='upload') continue;
         size = size + data[i].file.size;
       }
       this.needspace = this.usedspace + size;
       if (this.needspace > this.totalspace) {
         this.needpersent = 100;
-        this.$message.error("上传内容过大，请取消部分上传内容");
+        this.$message.error("上传内容过大，请取消部分上传内容",10);
       } else {
         this.needpersent = (this.needspace / this.totalspace) * 100;
       }
@@ -181,7 +181,7 @@ export default {
           file: null,
           info: {
             progress: 0,
-            status: false,
+            status: 'upload',
             type: ""
           }
         };
@@ -214,26 +214,29 @@ export default {
       this.$refs.inputfile.dispatchEvent(new MouseEvent("click"));
     },
     removefile: function(index) {
+      if(index<=this.uploadindex&&this.uploadindex!=0){
+        this.uploadindex--;
+      }
       this.fileList.splice(index, 1);
     },
     uploadfile: function() {
-      this.disable = true;
       if (this.fileList.length > 0 && this.fileList.length > this.uploadindex) {
+        this.disable = true;
         let config = {
           headers: { "Content-Type": "multipart/form-data" },
           onUploadProgress: progressEvent => {
             var complete =
               ((progressEvent.loaded / progressEvent.total) * 100) | 0;
             this.fileList[this.uploadindex].info.progress = complete;
-            if (complete == 100) {
-              this.fileList[this.uploadindex].info.status = true;
-              this.uploadindex++;
-              if (this.uploadindex < this.fileList.length) {
-                this.uploadfile();
-              } else {
-                this.disable = false;
-              }
-            }
+            // if (complete == 100) {
+            //   this.fileList[this.uploadindex].info.status = 'sub';
+            //   this.uploadindex++;
+            //   if (this.uploadindex < this.fileList.length) {
+            //     this.uploadfile();
+            //   } else {
+            //     this.disable = false;
+            //   }
+            // }
           }
         };
         let parms = new FormData();
@@ -243,7 +246,23 @@ export default {
           this.fileList[this.uploadindex].file.name
         );
         this.axios.post("/upload", parms, config).then(response=> {
+            this.fileList[this.uploadindex].info.status = 'sub';
+            this.uploadindex++;
+            if (this.uploadindex < this.fileList.length) {
+            this.uploadfile();
+            } else {
+            this.disable = false;
+          }
           this.getdiskinfo();
+        }).catch(err=> {
+          this.fileList[this.uploadindex].info.status = 'err';
+          this.uploadindex++;
+          this.$message.error("上传失败，请检查网络连接、浏览器地址或是否已关闭文件服务！",5);
+          if (this.uploadindex < this.fileList.length) {
+          this.uploadfile();
+          } else {
+            this.disable = false;
+          }
         });
       }
     }

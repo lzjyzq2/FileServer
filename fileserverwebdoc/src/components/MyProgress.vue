@@ -2,6 +2,7 @@
     <div class="progress-container">
       <div class="progress-pg" :style="{width:this.percent+'%',height:this.strokeWidth+'px'}"></div>
       <div class="progress-subpg" v-if="this.subpercent!=''" :style="{width:this.subpercent+'%',height:this.strokeWidth+'px'}"></div>
+      <div class="progress-errpg" v-if="this.errpercent!=''" :style="{width:this.errpercent+'%',height:this.strokeWidth+'px'}"></div>
     </div>
 </template>
 <script>
@@ -13,6 +14,7 @@ export default {
   props: {
     percent: Number,
     subpercent: Number,
+    errpercent:Number,
     strokeWidth:Number
   }
 };
@@ -30,6 +32,13 @@ export default {
 }
 .progress-container .progress-subpg {
   background-color: #52c41a;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: 100px;
+}
+.progress-container .progress-errpg {
+  background-color: #f03434;
   position: absolute;
   top: 0px;
   left: 0px;

@@ -286,8 +286,9 @@ public class WebServer extends NanoHTTPD {
                                 for (int i = 0; i < newpath.size(); i++) {
                                     newpathstr.append(newpath.getString(i)).append(ServerFileUtils.separator);
                                 }
-                                if (ServerFileUtils.RemoveTo(oldpathstr.toString(), newpathstr.toString(), parms.getString("name")))
+                                if (ServerFileUtils.RemoveTo(oldpathstr.toString(), newpathstr.toString(), parms.getString("name"))){
                                     return newFixedLengthResponse("suss");
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();

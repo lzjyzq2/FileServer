@@ -4,7 +4,7 @@
       <a-col :xs="5" class="name">{{this.itemdata.file.name}}</a-col>
       <a-col :xs="4" class="type">{{this.itemdata.info.type}}</a-col>
       <a-col :xs="12" :sm="14">
-        <my-progress :percent="this.itemdata.info.progress" :strokeWidth="8" />
+        <my-progress :percent="this.itemdata.info.progress" :subpercent="this.itemdata.info.status=='sub'?100:0" :errpercent="this.itemdata.info.status=='err'?100:0" :strokeWidth="8" />
       </a-col>
       <a-col :xs="3" :sm="1" style="text-align: center">
         <a-button shape="circle" icon="close" size="small" :disabled="this.disable" @click="removefile(index)"/>
