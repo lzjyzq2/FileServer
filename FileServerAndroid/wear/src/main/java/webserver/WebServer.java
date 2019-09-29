@@ -83,6 +83,7 @@ public class WebServer extends NanoHTTPD {
                 .addWebServerFilter("/upload", new WebServerFilter() {
                     @Override
                     Response response(IHTTPSession session, String mimetype) {
+                        Config.createDir(Config.getInstance().getUPLOAD());
                         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
                         diskFileItemFactory.setRepository(new File(Config.getInstance().getUPLOAD()));
                         NanoFileUpload uploader = new NanoFileUpload(diskFileItemFactory);
@@ -142,6 +143,7 @@ public class WebServer extends NanoHTTPD {
                 .addWebServerFilter("/api/getuploaddirinfo", new WebServerFilter() {
                     @Override
                     Response response(IHTTPSession session, String mimetype) {
+                        Config.createDir(Config.getInstance().getUPLOAD());
                         String s = JSON.toJSONString(ServerFileUtils.getUploaDirectoryInfo());
                         return newFixedLengthResponse(s);
                     }
@@ -354,6 +356,7 @@ public class WebServer extends NanoHTTPD {
                 .addWebServerFilter("/api/uploadtodir", new WebServerFilter() {
                     @Override
                     Response response(IHTTPSession session, String mimetype) {
+                        Config.createDir(Config.getInstance().getUPLOAD());
                         DiskFileItemFactory diskFileItemFactory = new DiskFileItemFactory();
                         diskFileItemFactory.setRepository(new File(Config.getInstance().getUPLOAD()));
                         NanoFileUpload uploader = new NanoFileUpload(diskFileItemFactory);
@@ -467,9 +470,7 @@ public class WebServer extends NanoHTTPD {
         try {
             session.parseBody(parms);
             return JSONObject.parseObject(parms.get("postData"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ResponseException e) {
+        } catch (IOException | ResponseException e) {
             e.printStackTrace();
         }
         return null;

@@ -67,7 +67,7 @@ public class MainActivity extends WearableActivity implements View.OnClickListen
             Manifest.permission.CHANGE_NETWORK_STATE
     };
 
-    Handler handler = new Handler(){
+    public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){

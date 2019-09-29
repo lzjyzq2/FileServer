@@ -2,6 +2,7 @@ package webserver.util;
 
 import android.os.Environment;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +10,9 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
+import cn.settile.lzjyzq2.fileserver.activity.MainActivity;
+import cn.settile.lzjyzq2.fileserver.application.myapplication;
 
 public class Config {
     private static Config config = new Config();
